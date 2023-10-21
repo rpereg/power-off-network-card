@@ -1,0 +1,2 @@
+PS C:\> Get-WMIObject Win32_Bios -ComputerName davidcomputer | Select-Object SerialNumber
+

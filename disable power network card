@@ -1,0 +1,9 @@
+if ((Get-CimInstance -ClassName Win32_ComputerSystem).PCSystemType -ne 2)
+{
+    $adapters = Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -FilterScript {$_.AllowComputerToTurnOffDevice -ne "Unsupported"}
+    foreach ($adapter in $adapters)
+    {
+        $adapter.AllowComputerToTurnOffDevice = "Disabled"
+        $adapter | Set-NetAdapterPowerManagement
+    }
+}

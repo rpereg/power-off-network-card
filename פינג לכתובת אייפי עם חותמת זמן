@@ -1,0 +1,15 @@
+$LogPath = "C:\logs\ping.txt"
+$HostToPing = "8.8.8.8"
+
+while ($true) {
+    $pingResult = Test-Connection -ComputerName $HostToPing -Count 1
+
+    if ($pingResult.StatusCode -ne 0) {
+        $logEntry = "Request Timeout to $HostToPing at $(Get-Date)"
+        Write-Host $logEntry
+        Add-Content -Path $LogPath -Value $logEntry
+    }
+
+    # Adjust the sleep time (in seconds) to control the ping frequency
+    Start-Sleep -Seconds 5
+}
